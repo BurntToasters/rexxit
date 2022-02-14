@@ -1,4 +1,3 @@
-layout: page
 <html lang="en">
 
 <head>
