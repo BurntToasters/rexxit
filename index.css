@@ -9,6 +9,15 @@ body, html {
     align-items: center;
 }
 
+img:hover{
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+    box-shadow: 20px 20px 100px #2b2b2b;
+  }
+
 .overlay {
     position: fixed;
     top: 0;
