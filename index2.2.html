@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPadOS Style Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="v2.css" rel="stylesheet">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+
+        <div class="grid" id="app-grid">
+            
+            <!-- App icons will be dynamically added here -->
+        </div>
+    </div>
+
+
+
+    <script>
+        // Define the app data
+        const apps = [
+            { name: "App 1", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png" },
+            { name: "App 2", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png" },
+            { name: "App 3", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png" },
+            { name: "App 4", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png" },
+            { name: "App 5", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png" },
+        ];
+
+        // Reference to the grid container
+        const appGrid = document.getElementById('app-grid');
+
+        // Add each app to the grid dynamically
+        apps.forEach((app, index) => {
+            const appElement = document.createElement('a');
+            appElement.href = app.link;
+            appElement.target = "_blank";
+            appElement.className = 'app';
+            appElement.style.animationDelay = `${index * 0.1}s`;
+
+            const appIcon = document.createElement('img');
+            appIcon.src = app.icon;
+            appIcon.alt = app.name;
+
+            appElement.appendChild(appIcon);
+            appGrid.appendChild(appElement);
+        });
+    </script>
+</body>
+</html>
