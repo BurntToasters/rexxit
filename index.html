@@ -4,23 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rexxit.net</title>
-    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Russo+One&effect=anaglyph" rel="stylesheet">
+    <link href="v2.0.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"> 
 </head>
 <body>
-    <div class="overlay"></div>
-    <div class="content">
-        <a href="/" title="Back to home"><img src="https://prod.rexxit.net/drweb/assets/rexxit-singular0.png" width="30%" height="30%" alt="Rexxit.net logo"></a>
-        <div class="font-effect-anaglyph"><h1 style="font-family: Russo One;">REXXIT.NET</h1></div>
-        <p style="font-family: Arial, Helvetica, sans-serif;">The heart of many projects.</p>
-        <a href="/contact"><button>Contact</button></a>
-        <br>
-        <p style="font-family: Arial, Helvetica, sans-serif; font-size: 15px">&copy; REXXIT.NET 2024</p>
-       <a href="/index.launcher"><p>&wedbar;</p></a>
+    <div class="background" id="background"></div>
+    <div class="intro">
+        <p><a href="/"><img src="https://prod.rexxit.net/drweb/assets/rexxit-singular0.png" alt="Rexxit Logo"></a></p>
+        <div class="font-effect-anaglyph"><h1 style="font-family: Russo One; text-align: center; color: white; font-size: 40px;">REXXIT.NET</h1></div>
+        <h2>The heart of many projects.</h2>
     </div>
+    <div class="container">
+        <div class="grid" id="app-grid">
+        </div>
+    </div>
+    <footer>
+        <a href="/contact" target="_blank">Contact</a>
+        <a href="/about" target="_blank">About</a>
+        <a href="/legacy" target="_blank">Legacy Landing</a>
+    </footer>
 
-
-</body>
-
-</html>
+    <script>
+        // Define app data
+        const apps = [
+            { name: "App 1", link: "https://driverhub.win", icon: "https://prod.rexxit.net/global/_icons/DH-logo-optim.webp", title: "Driver Hub" },
+            
+            { name: "App 2", link: "https://docs.rexxit.net", icon: "https://prod.rexxit.net/global/_icons/docssite.ico", title: "Docs" },
+            /*
+            { name: "App 3", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png", title: "" }, // No title
+            { name: "App 4", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png", title: "Game App" },
+            { name: "App 5", link: "https://rexxit.net/index.launcher", icon: "https://cdn.pixabay.com/photo/2013/04/01/09/02/external-link-98445_1280.png", title: "Music App" },
+             */
+        ];
+    
+        // Reference grid container
+        const appGrid = document.getElementById('app-grid');
+        const background = document.getElementById('background');
+    
+        // grid dynamics
+        apps.forEach((app, index) => {
+            const appWrapper = document.createElement('div');
+            appWrapper.className = 'app-wrapper';
+            appWrapper.style.animationDelay = `${index * 0.1}s`;
+    
+            const appElement = document.createElement('a');
+            appElement.href = app.link;
+            appElement.target = "_blank";
+            appElement.className = 'app';
+    
+            const appIcon = document.createElement('img');
+            appIcon.src = app.icon;
+            appIcon.alt = app.name;
+    
+            appElement.appendChild(appIcon);
+            appWrapper.appendChild(appElement);
+    
+            // Add title if provided
+            if (app.title) {
+                const appTitle = document.createElement('span');
+                appTitle.className = 'app-title';
+                appTitle.textContent = app.title;
+                appWrapper.appendChild(appTitle);
+            }
+    
+            appGrid.appendChild(appWrapper);
+    
+            setTimeout(() => {
+                appElement.classList.add('loaded');
+            }, 1000 + index * 100);
+    
+            // Mouse move effect for 3D hover effect
+            appWrapper.addEventListener('mousemove', (e) => {
+                const rect = appWrapper.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+    
+                const rotateX = y * 28; // sensitivity y
+                const rotateY = x * -28; // sensitivity x
+    
+                appWrapper.style.transform = `
+                    perspective(500px)
+                    rotateX(${rotateX}deg)
+                    rotateY(${rotateY}deg)
+                `;
+    
+                // Exponential scaling on hover
+                const scaleFactor = Math.max(1.05, Math.pow(Math.abs(x) + Math.abs(y), 2)); // Exponential scaling effect
+                appWrapper.style.transform += ` scale(${scaleFactor})`; // exponential scaling
+            });
+    
+            appWrapper.addEventListener('mouseleave', () => {
+                appWrapper.style.transform = ''; // Reset transform
+            });
+        });
+    
+        // Parallax effect for the background
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const xPercent = (clientX / window.innerWidth) - 0.5;
+            const yPercent = (clientY / window.innerHeight) - 0.5;
+            const translateX = xPercent * -8;
+            const translateY = yPercent * -8;
+    
+            background.style.transform = `translate(${translateX}px, ${translateY}px)`;
+        });
+    </script>
+    
+    
